@@ -1,0 +1,1442 @@
+/* ============================================================
+   AdminLogin.css — NewsAI Admin Auth Pages (Login + Signup)
+   Namespace: ai-news-admin-login-* | ai-news-admin-signup-*
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+
+/* ── CSS Variables ─────────────────────────────────────────── */
+:root {
+  --a-accent: #f59e0b;
+  --a-accent-2: #ef4444;
+  --a-accent-3: #10b981;
+  --a-bg-dark: #0a0806;
+  --a-bg-dark-2: #0d0b09;
+  --a-bg-dark-card: #161209;
+  --a-bg-dark-card-2: #1c1610;
+  --a-border-dark: rgba(245, 158, 11, 0.15);
+  --a-text-dark-primary: #fef3e2;
+  --a-text-dark-secondary: #c4a882;
+  --a-text-dark-muted: #6b5539;
+
+  --a-bg-light: #fefaf0;
+  --a-bg-light-2: #fdf6e3;
+  --a-bg-light-card: #ffffff;
+  --a-bg-light-card-2: #fffbf2;
+  --a-border-light: rgba(180, 120, 20, 0.18);
+  --a-text-light-primary: #1a1006;
+  --a-text-light-secondary: #5a3e1a;
+  --a-text-light-muted: #b08050;
+
+  --a-gradient-hero: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #f97316 100%);
+  --a-gradient-btn: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  --a-gradient-left-dark: linear-gradient(160deg, #120e06 0%, #1a1408 60%, #1f1a0a 100%);
+  --a-gradient-left-light: linear-gradient(160deg, #7c2d12 0%, #92400e 60%, #78350f 100%);
+
+  --a-shadow-glow: 0 0 30px rgba(245, 158, 11, 0.18);
+  --a-radius: 12px;
+  --a-radius-sm: 8px;
+  --a-transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --a-font-display: 'Rajdhani', sans-serif;
+  --a-font-body: 'IBM Plex Sans', sans-serif;
+}
+
+/* ── Reset ──────────────────────────────────────────────────── */
+.ai-news-admin-signup-root *,
+.ai-news-admin-login-root * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.ai-news-admin-signup-seo-title,
+.ai-news-admin-login-seo-title {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ── Root ───────────────────────────────────────────────────── */
+.ai-news-admin-signup-root,
+.ai-news-admin-login-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  font-family: var(--a-font-body);
+  overflow: hidden;
+}
+
+.ai-news-admin-signup-root.dark,
+.ai-news-admin-login-root.dark {
+  background: var(--a-bg-dark);
+  color: var(--a-text-dark-primary);
+}
+
+.ai-news-admin-signup-root.light,
+.ai-news-admin-login-root.light {
+  background: var(--a-bg-light);
+  color: var(--a-text-light-primary);
+}
+
+/* ── Canvas ─────────────────────────────────────────────────── */
+.ai-news-admin-signup-canvas,
+.ai-news-admin-login-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Orbs ───────────────────────────────────────────────────── */
+.ai-news-admin-signup-orb,
+.ai-news-admin-login-orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(90px);
+  opacity: 0.2;
+  animation: a-orb-drift 14s ease-in-out infinite;
+}
+
+.ai-news-admin-signup-orb-1, .ai-news-admin-login-orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #f59e0b, transparent 70%);
+  top: -150px; right: -100px;
+  animation-delay: 0s;
+}
+
+.ai-news-admin-signup-orb-2, .ai-news-admin-login-orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, #b45309, transparent 70%);
+  bottom: -100px; left: -80px;
+  animation-delay: -6s;
+}
+
+@keyframes a-orb-drift {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-25px) rotate(5deg); }
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+.ai-news-admin-signup-layout,
+.ai-news-admin-login-layout {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── LEFT PANEL ─────────────────────────────────────────────── */
+.ai-news-admin-signup-left,
+.ai-news-admin-login-left {
+  width: 44%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+
+.dark .ai-news-admin-signup-left,
+.dark .ai-news-admin-login-left {
+  background: var(--a-gradient-left-dark);
+  border-right: 1px solid var(--a-border-dark);
+}
+
+.light .ai-news-admin-signup-left,
+.light .ai-news-admin-login-left {
+  background: var(--a-gradient-left-light);
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.ai-news-admin-signup-left-inner,
+.ai-news-admin-login-left-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding: 2.5rem 2.2rem;
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.ai-news-admin-signup-left-inner::-webkit-scrollbar,
+.ai-news-admin-login-left-inner::-webkit-scrollbar { display: none; }
+
+/* Brand */
+.ai-news-admin-signup-brand,
+.ai-news-admin-login-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ai-news-admin-signup-logo,
+.ai-news-admin-login-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--a-font-display);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.03em;
+}
+
+.ai-news-admin-signup-logo svg,
+.ai-news-admin-login-logo svg {
+  color: var(--a-accent);
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.6));
+}
+
+.ai-news-admin-signup-logo strong,
+.ai-news-admin-login-logo strong { color: var(--a-accent); }
+
+.ai-news-admin-signup-logo em,
+.ai-news-admin-login-logo em {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.85em;
+  color: rgba(255,255,255,0.55);
+}
+
+.ai-news-admin-signup-badge,
+.ai-news-admin-login-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.2rem 0.7rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--a-accent);
+}
+
+/* Hero */
+.ai-news-admin-signup-hero,
+.ai-news-admin-login-hero { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.ai-news-admin-signup-hero h2,
+.ai-news-admin-login-hero h2 {
+  font-family: var(--a-font-display);
+  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.ai-news-admin-signup-gradient-text,
+.ai-news-admin-login-gradient-text {
+  background: var(--a-gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ai-news-admin-signup-hero p,
+.ai-news-admin-login-hero p {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ── Warning Banner (Signup) ────────────────────────────────── */
+.ai-news-admin-signup-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.9rem 1rem;
+  border-radius: var(--a-radius-sm);
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.ai-news-admin-signup-warning svg { color: #ef4444; flex-shrink: 0; margin-top: 1px; }
+
+.ai-news-admin-signup-warning strong {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 0.2rem;
+}
+
+.ai-news-admin-signup-warning p {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+}
+
+/* ── Capabilities (Signup) ──────────────────────────────────── */
+.ai-news-admin-signup-capabilities { display: flex; flex-direction: column; gap: 0.35rem; }
+.ai-news-admin-signup-capabilities h3 {
+  font-family: var(--a-font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 0.25rem;
+}
+
+.ai-news-admin-signup-capability-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--a-radius-sm);
+  transition: background var(--a-transition);
+}
+
+.ai-news-admin-signup-capability-item:hover {
+  background: rgba(245, 158, 11, 0.06);
+}
+
+.ai-news-admin-signup-capability-icon {
+  width: 34px; height: 34px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--a-accent);
+  flex-shrink: 0;
+}
+
+.ai-news-admin-signup-capability-item strong {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.88);
+  margin-bottom: 0.15rem;
+}
+
+.ai-news-admin-signup-capability-item p {
+  font-size: 0.77rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.4;
+}
+
+/* ── Role Preview (Signup) ──────────────────────────────────── */
+.ai-news-admin-signup-role-preview { display: flex; flex-direction: column; gap: 0.5rem; }
+.ai-news-admin-signup-role-preview h3 {
+  font-family: var(--a-font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+
+.ai-news-admin-signup-role-card {
+  padding: 1rem;
+  border-radius: var(--a-radius);
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ai-news-admin-signup-role-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--a-accent);
+}
+
+.ai-news-admin-signup-role-header strong {
+  font-family: var(--a-font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+}
+
+.ai-news-admin-signup-role-card p {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+}
+
+.ai-news-admin-signup-role-perms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.ai-news-admin-signup-perm-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+/* ── Security Note (shared) ─────────────────────────────────── */
+.ai-news-admin-signup-security-note,
+.ai-news-admin-login-security-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--a-radius-sm);
+  background: rgba(245, 158, 11, 0.05);
+  border: 1px solid rgba(245, 158, 11, 0.1);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+  margin-top: auto;
+}
+
+.ai-news-admin-signup-security-note svg,
+.ai-news-admin-login-security-note svg { color: var(--a-accent); flex-shrink: 0; }
+
+/* ── Login: Stats ───────────────────────────────────────────── */
+.ai-news-admin-login-stats-section { display: flex; flex-direction: column; gap: 0.7rem; }
+
+.ai-news-admin-login-stats-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ai-news-admin-login-live-indicator {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--a-accent);
+  box-shadow: 0 0 8px var(--a-accent);
+  animation: a-pulse 2s infinite;
+}
+
+@keyframes a-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.ai-news-admin-login-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+}
+
+.ai-news-admin-login-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.8rem;
+  border-radius: var(--a-radius-sm);
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.1);
+}
+
+.ai-news-admin-login-stat-icon {
+  width: 32px; height: 32px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--a-accent);
+  flex-shrink: 0;
+}
+
+.ai-news-admin-login-stat-card strong {
+  display: block;
+  font-family: var(--a-font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+}
+
+.ai-news-admin-login-stat-card p {
+  font-size: 0.73rem;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ── Login: Quick Actions ───────────────────────────────────── */
+.ai-news-admin-login-quick-section { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.ai-news-admin-login-quick-section h3 {
+  font-family: var(--a-font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 0.2rem;
+}
+
+.ai-news-admin-login-quick-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0.8rem;
+  border-radius: var(--a-radius-sm);
+  border: 1px solid rgba(245, 158, 11, 0.07);
+  transition: all var(--a-transition);
+  cursor: default;
+}
+
+.ai-news-admin-login-quick-item:hover {
+  background: rgba(245, 158, 11, 0.06);
+  border-color: rgba(245, 158, 11, 0.15);
+}
+
+.ai-news-admin-login-quick-icon {
+  width: 30px; height: 30px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--a-accent);
+  flex-shrink: 0;
+}
+
+.ai-news-admin-login-quick-label {
+  flex: 1;
+  font-size: 0.83rem;
+  color: rgba(255,255,255,0.75);
+}
+
+.ai-news-admin-login-quick-count {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--a-accent);
+}
+
+/* ── RIGHT PANEL ────────────────────────────────────────────── */
+.ai-news-admin-signup-right,
+.ai-news-admin-login-right {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+  overflow-y: auto;
+}
+
+.dark .ai-news-admin-signup-right,
+.dark .ai-news-admin-login-right { background: var(--a-bg-dark-2); }
+
+.light .ai-news-admin-signup-right,
+.light .ai-news-admin-login-right { background: var(--a-bg-light-2); }
+
+.ai-news-admin-signup-form-container,
+.ai-news-admin-login-form-container {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  animation: a-fade-in 0.45s ease;
+}
+
+@keyframes a-fade-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Step Indicator (Signup) ────────────────────────────────── */
+.ai-news-admin-signup-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-news-admin-signup-step {
+  width: 34px; height: 34px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--a-font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 2px solid;
+  transition: all var(--a-transition);
+}
+
+.dark .ai-news-admin-signup-step {
+  background: var(--a-bg-dark-card);
+  border-color: var(--a-border-dark);
+  color: var(--a-text-dark-muted);
+}
+
+.light .ai-news-admin-signup-step {
+  background: var(--a-bg-light-card);
+  border-color: var(--a-border-light);
+  color: var(--a-text-light-muted);
+}
+
+.ai-news-admin-signup-step.active {
+  border-color: var(--a-accent) !important;
+  color: var(--a-accent) !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.ai-news-admin-signup-step.done {
+  background: var(--a-accent) !important;
+  border-color: var(--a-accent) !important;
+  color: #fff !important;
+}
+
+.ai-news-admin-signup-step-line {
+  height: 2px;
+  width: 55px;
+  transition: background var(--a-transition);
+}
+
+.dark .ai-news-admin-signup-step-line { background: var(--a-border-dark); }
+.light .ai-news-admin-signup-step-line { background: var(--a-border-light); }
+.ai-news-admin-signup-step-line.active { background: var(--a-accent) !important; }
+
+.ai-news-admin-signup-step-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.73rem;
+  font-weight: 500;
+  padding: 0 0.3rem;
+}
+
+.dark .ai-news-admin-signup-step-labels { color: var(--a-text-dark-muted); }
+.light .ai-news-admin-signup-step-labels { color: var(--a-text-light-muted); }
+
+/* ── Form Header ────────────────────────────────────────────── */
+.ai-news-admin-signup-form-header,
+.ai-news-admin-login-form-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  text-align: center;
+}
+
+.ai-news-admin-signup-form-header h2,
+.ai-news-admin-login-form-header h2 {
+  font-family: var(--a-font-display);
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.dark .ai-news-admin-signup-form-header h2,
+.dark .ai-news-admin-login-form-header h2 { color: var(--a-text-dark-primary); }
+.light .ai-news-admin-signup-form-header h2,
+.light .ai-news-admin-login-form-header h2 { color: var(--a-text-light-primary); }
+
+.ai-news-admin-signup-form-header p,
+.ai-news-admin-login-form-header p { font-size: 0.88rem; }
+
+.dark .ai-news-admin-signup-form-header p,
+.dark .ai-news-admin-login-form-header p { color: var(--a-text-dark-secondary); }
+.light .ai-news-admin-signup-form-header p,
+.light .ai-news-admin-login-form-header p { color: var(--a-text-light-secondary); }
+
+.ai-news-admin-login-form-icon {
+  width: 62px; height: 62px;
+  border-radius: var(--a-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  background: var(--a-gradient-btn);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(180, 83, 9, 0.4);
+  animation: a-icon-glow 3s ease-in-out infinite;
+}
+
+@keyframes a-icon-glow {
+  0%, 100% { box-shadow: 0 8px 24px rgba(180, 83, 9, 0.4); }
+  50% { box-shadow: 0 8px 32px rgba(245, 158, 11, 0.5); }
+}
+
+/* ── Form ───────────────────────────────────────────────────── */
+.ai-news-admin-signup-form,
+.ai-news-admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.ai-news-admin-signup-step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  animation: a-fade-in 0.3s ease;
+}
+
+/* ── Fields ─────────────────────────────────────────────────── */
+.ai-news-admin-signup-field,
+.ai-news-admin-login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.ai-news-admin-signup-label,
+.ai-news-admin-login-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.dark .ai-news-admin-signup-label,
+.dark .ai-news-admin-login-label { color: var(--a-text-dark-secondary); }
+.light .ai-news-admin-signup-label,
+.light .ai-news-admin-login-label { color: var(--a-text-light-secondary); }
+
+/* ── Inputs ─────────────────────────────────────────────────── */
+.ai-news-admin-signup-input,
+.ai-news-admin-login-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: var(--a-radius-sm);
+  font-family: var(--a-font-body);
+  font-size: 0.92rem;
+  outline: none;
+  border: 1.5px solid;
+  transition: all var(--a-transition);
+}
+
+.dark .ai-news-admin-signup-input,
+.dark .ai-news-admin-login-input {
+  background: var(--a-bg-dark-card);
+  border-color: var(--a-border-dark);
+  color: var(--a-text-dark-primary);
+}
+
+.dark .ai-news-admin-signup-input::placeholder,
+.dark .ai-news-admin-login-input::placeholder { color: var(--a-text-dark-muted); }
+
+.light .ai-news-admin-signup-input,
+.light .ai-news-admin-login-input {
+  background: var(--a-bg-light-card);
+  border-color: var(--a-border-light);
+  color: var(--a-text-light-primary);
+}
+
+.ai-news-admin-signup-input:focus,
+.ai-news-admin-login-input:focus {
+  border-color: var(--a-accent) !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+}
+
+.ai-news-admin-signup-input.error,
+.ai-news-admin-login-input.error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
+}
+
+.ai-news-admin-signup-error,
+.ai-news-admin-login-error {
+  font-size: 0.77rem;
+  color: #ef4444;
+}
+
+.ai-news-admin-signup-hint,
+.ai-news-admin-login-hint {
+  font-size: 0.76rem;
+}
+.dark .ai-news-admin-signup-hint, .dark .ai-news-admin-login-hint { color: var(--a-text-dark-muted); }
+.light .ai-news-admin-signup-hint, .light .ai-news-admin-login-hint { color: var(--a-text-light-muted); }
+
+/* MFA input */
+.ai-news-admin-login-mfa-input {
+  letter-spacing: 0.4em;
+  text-align: center;
+  font-size: 1.2rem !important;
+  font-family: var(--a-font-display) !important;
+}
+
+/* ── Password Wrap ──────────────────────────────────────────── */
+.ai-news-admin-signup-password-wrap,
+.ai-news-admin-login-password-wrap {
+  position: relative;
+}
+
+.ai-news-admin-signup-password-wrap .ai-news-admin-signup-input,
+.ai-news-admin-login-password-wrap .ai-news-admin-login-input { padding-right: 2.8rem; }
+
+.ai-news-admin-signup-eye-btn,
+.ai-news-admin-login-eye-btn {
+  position: absolute;
+  right: 0.8rem; top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  transition: color var(--a-transition);
+}
+
+.dark .ai-news-admin-signup-eye-btn,
+.dark .ai-news-admin-login-eye-btn { color: var(--a-text-dark-muted); }
+.dark .ai-news-admin-signup-eye-btn:hover,
+.dark .ai-news-admin-login-eye-btn:hover { color: var(--a-accent); }
+
+.light .ai-news-admin-signup-eye-btn,
+.light .ai-news-admin-login-eye-btn { color: var(--a-text-light-muted); }
+.light .ai-news-admin-signup-eye-btn:hover,
+.light .ai-news-admin-login-eye-btn:hover { color: var(--a-accent); }
+
+/* ── Strength ───────────────────────────────────────────────── */
+.ai-news-admin-signup-strength {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+}
+
+.ai-news-admin-signup-strength-bars {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+}
+
+.ai-news-admin-signup-strength-bar {
+  height: 3px;
+  flex: 1;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.07);
+  transition: background 0.3s;
+}
+
+.ai-news-admin-signup-strength span { font-size: 0.73rem; font-weight: 600; }
+
+/* ── Two Col ────────────────────────────────────────────────── */
+.ai-news-admin-signup-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+/* ── Select ─────────────────────────────────────────────────── */
+.ai-news-admin-signup-select {
+  width: 100%;
+  padding: 0.78rem 1rem;
+  border-radius: var(--a-radius-sm);
+  font-family: var(--a-font-body);
+  font-size: 0.9rem;
+  outline: none;
+  border: 1.5px solid;
+  transition: all var(--a-transition);
+  cursor: pointer;
+}
+
+.dark .ai-news-admin-signup-select {
+  background: var(--a-bg-dark-card-2);
+  border-color: var(--a-border-dark);
+  color: var(--a-text-dark-primary);
+}
+
+.light .ai-news-admin-signup-select {
+  background: var(--a-bg-light-card);
+  border-color: var(--a-border-light);
+  color: var(--a-text-light-primary);
+}
+
+.ai-news-admin-signup-select:focus {
+  border-color: var(--a-accent) !important;
+}
+
+/* ── Roles Grid (Signup) ────────────────────────────────────── */
+.ai-news-admin-signup-roles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.ai-news-admin-signup-role-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.8rem;
+  border-radius: var(--a-radius-sm);
+  border: 1.5px solid;
+  cursor: pointer;
+  transition: all var(--a-transition);
+  position: relative;
+}
+
+.ai-news-admin-signup-role-option input { display: none; }
+
+.dark .ai-news-admin-signup-role-option {
+  background: var(--a-bg-dark-card);
+  border-color: var(--a-border-dark);
+}
+
+.light .ai-news-admin-signup-role-option {
+  background: var(--a-bg-light-card);
+  border-color: var(--a-border-light);
+}
+
+.ai-news-admin-signup-role-option.selected {
+  border-color: var(--a-accent) !important;
+  background: rgba(245, 158, 11, 0.08) !important;
+}
+
+.ai-news-admin-signup-role-option.selected::before {
+  content: '✓';
+  position: absolute;
+  top: 6px; right: 8px;
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: var(--a-accent);
+}
+
+.ai-news-admin-signup-role-opt-icon {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--a-accent);
+  flex-shrink: 0;
+}
+
+.ai-news-admin-signup-role-option strong {
+  font-size: 0.83rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.dark .ai-news-admin-signup-role-option strong { color: var(--a-text-dark-primary); }
+.light .ai-news-admin-signup-role-option strong { color: var(--a-text-light-primary); }
+
+.ai-news-admin-signup-role-option p {
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+.dark .ai-news-admin-signup-role-option p { color: var(--a-text-dark-muted); }
+.light .ai-news-admin-signup-role-option p { color: var(--a-text-light-muted); }
+
+/* ── Review Card (Signup step 3) ────────────────────────────── */
+.ai-news-admin-signup-review-card {
+  padding: 1rem 1.1rem;
+  border-radius: var(--a-radius);
+  border: 1px solid;
+}
+
+.dark .ai-news-admin-signup-review-card {
+  background: var(--a-bg-dark-card);
+  border-color: var(--a-border-dark);
+}
+
+.light .ai-news-admin-signup-review-card {
+  background: var(--a-bg-light-card);
+  border-color: var(--a-border-light);
+}
+
+.ai-news-admin-signup-review-card h4 {
+  font-family: var(--a-font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+.dark .ai-news-admin-signup-review-card h4 { color: var(--a-text-dark-primary); }
+.light .ai-news-admin-signup-review-card h4 { color: var(--a-text-light-primary); }
+
+.ai-news-admin-signup-review-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.ai-news-admin-signup-review-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.ai-news-admin-signup-review-grid span {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.dark .ai-news-admin-signup-review-grid span { color: var(--a-text-dark-muted); }
+.light .ai-news-admin-signup-review-grid span { color: var(--a-text-light-muted); }
+
+.ai-news-admin-signup-review-grid strong {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.dark .ai-news-admin-signup-review-grid strong { color: var(--a-text-dark-primary); }
+.light .ai-news-admin-signup-review-grid strong { color: var(--a-text-light-primary); }
+
+/* ── Policies (Signup step 3) ───────────────────────────────── */
+.ai-news-admin-signup-policies {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+/* ── Final Note (Signup step 3) ─────────────────────────────── */
+.ai-news-admin-signup-final-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: var(--a-radius-sm);
+  background: rgba(245, 158, 11, 0.07);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.ai-news-admin-signup-final-note svg { color: var(--a-accent); flex-shrink: 0; margin-top: 2px; }
+
+.dark .ai-news-admin-signup-final-note { color: var(--a-text-dark-secondary); }
+.light .ai-news-admin-signup-final-note { color: var(--a-text-light-secondary); }
+
+.ai-news-admin-signup-final-note strong {
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--a-accent);
+}
+
+/* ── Checkbox ───────────────────────────────────────────────── */
+.ai-news-admin-signup-checkbox-label,
+.ai-news-admin-login-remember {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.83rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ai-news-admin-signup-checkbox-label input,
+.ai-news-admin-login-remember input { display: none; }
+
+.ai-news-admin-signup-custom-checkbox,
+.ai-news-admin-login-custom-checkbox {
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  border: 2px solid;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--a-transition);
+}
+
+.dark .ai-news-admin-signup-custom-checkbox,
+.dark .ai-news-admin-login-custom-checkbox {
+  border-color: var(--a-border-dark);
+  background: var(--a-bg-dark-card);
+}
+
+.light .ai-news-admin-signup-custom-checkbox,
+.light .ai-news-admin-login-custom-checkbox {
+  border-color: rgba(180, 120, 20, 0.3);
+  background: #fff;
+}
+
+.ai-news-admin-signup-checkbox-label input:checked + .ai-news-admin-signup-custom-checkbox,
+.ai-news-admin-login-remember input:checked + .ai-news-admin-login-custom-checkbox {
+  background: var(--a-accent) !important;
+  border-color: var(--a-accent) !important;
+}
+
+.ai-news-admin-signup-checkbox-label input:checked + .ai-news-admin-signup-custom-checkbox::after,
+.ai-news-admin-login-remember input:checked + .ai-news-admin-login-custom-checkbox::after {
+  content: '✓';
+  font-size: 0.65rem;
+  color: white;
+  font-weight: 900;
+}
+
+.dark .ai-news-admin-signup-checkbox-label { color: var(--a-text-dark-secondary); }
+.light .ai-news-admin-signup-checkbox-label { color: var(--a-text-light-secondary); }
+.dark .ai-news-admin-login-remember { color: var(--a-text-dark-secondary); }
+.light .ai-news-admin-login-remember { color: var(--a-text-light-secondary); }
+
+.ai-news-admin-signup-checkbox-label a { color: var(--a-accent); text-decoration: none; }
+.ai-news-admin-signup-checkbox-label a:hover { text-decoration: underline; }
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.ai-news-admin-signup-btn-primary,
+.ai-news-admin-login-btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.88rem 1.5rem;
+  border-radius: var(--a-radius-sm);
+  font-family: var(--a-font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  border: none;
+  background: var(--a-gradient-btn);
+  color: #fff;
+  transition: all var(--a-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-news-admin-signup-btn-primary::before,
+.ai-news-admin-login-btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background var(--a-transition);
+}
+
+.ai-news-admin-signup-btn-primary:hover::before,
+.ai-news-admin-login-btn-primary:hover::before { background: rgba(255,255,255,0.09); }
+
+.ai-news-admin-signup-btn-primary:hover,
+.ai-news-admin-login-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(180, 83, 9, 0.45);
+}
+
+.ai-news-admin-signup-btn-primary:disabled,
+.ai-news-admin-login-btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ai-news-admin-signup-btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.85rem 1.2rem;
+  border-radius: var(--a-radius-sm);
+  font-family: var(--a-font-display);
+  font-size: 0.93rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid;
+  background: transparent;
+  transition: all var(--a-transition);
+  letter-spacing: 0.02em;
+  flex: 1;
+}
+
+.dark .ai-news-admin-signup-btn-secondary {
+  border-color: var(--a-border-dark);
+  color: var(--a-text-dark-secondary);
+}
+
+.dark .ai-news-admin-signup-btn-secondary:hover {
+  border-color: var(--a-accent);
+  color: var(--a-accent);
+}
+
+.light .ai-news-admin-signup-btn-secondary {
+  border-color: var(--a-border-light);
+  color: var(--a-text-light-secondary);
+}
+
+.light .ai-news-admin-signup-btn-secondary:hover {
+  border-color: var(--a-accent);
+  color: var(--a-accent);
+}
+
+.ai-news-admin-signup-btn-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.ai-news-admin-signup-btn-row .ai-news-admin-signup-btn-primary { flex: 2; }
+
+.ai-news-admin-login-btn-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.82rem 1.5rem;
+  border-radius: var(--a-radius-sm);
+  font-family: var(--a-font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  border: 1.5px solid;
+  transition: all var(--a-transition);
+}
+
+.dark .ai-news-admin-login-btn-outline {
+  border-color: var(--a-border-dark);
+  color: var(--a-text-dark-primary);
+}
+
+.light .ai-news-admin-login-btn-outline {
+  border-color: var(--a-border-light);
+  color: var(--a-text-light-primary);
+}
+
+.ai-news-admin-login-btn-outline:hover {
+  border-color: var(--a-accent) !important;
+  color: var(--a-accent) !important;
+  transform: translateY(-1px);
+}
+
+.ai-news-admin-login-btn-ghost {
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--a-font-body);
+  font-size: 0.87rem;
+  transition: color var(--a-transition);
+}
+
+.dark .ai-news-admin-login-btn-ghost { color: var(--a-text-dark-muted); }
+.dark .ai-news-admin-login-btn-ghost:hover { color: var(--a-accent); }
+.light .ai-news-admin-login-btn-ghost { color: var(--a-text-light-muted); }
+.light .ai-news-admin-login-btn-ghost:hover { color: var(--a-accent); }
+
+/* ── Spinners ───────────────────────────────────────────────── */
+.ai-news-admin-signup-spinner,
+.ai-news-admin-login-spinner {
+  width: 20px; height: 20px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: a-spin 0.65s linear infinite;
+}
+
+@keyframes a-spin { to { transform: rotate(360deg); } }
+
+/* ── Alert Error ────────────────────────────────────────────── */
+.ai-news-admin-login-alert-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--a-radius-sm);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  background: rgba(239, 68, 68, 0.07);
+  color: #ef4444;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  animation: a-fade-in 0.3s ease;
+}
+
+.ai-news-admin-login-alert-error svg { flex-shrink: 0; margin-top: 2px; }
+.ai-news-admin-login-attempts {
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: block;
+  margin-top: 0.2rem;
+  color: #f97316;
+}
+
+/* ── Forgot Warning ─────────────────────────────────────────── */
+.ai-news-admin-login-forgot-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: var(--a-radius-sm);
+  background: rgba(245, 158, 11, 0.07);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.ai-news-admin-login-forgot-warning svg { color: var(--a-accent); flex-shrink: 0; margin-top: 2px; }
+.dark .ai-news-admin-login-forgot-warning { color: var(--a-text-dark-secondary); }
+.light .ai-news-admin-login-forgot-warning { color: var(--a-text-light-secondary); }
+
+/* ── Login Extras ───────────────────────────────────────────── */
+.ai-news-admin-login-forgot-inline {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--a-accent);
+  padding: 0;
+  transition: opacity var(--a-transition);
+}
+.ai-news-admin-login-forgot-inline:hover { opacity: 0.7; }
+
+.ai-news-admin-login-apply-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  text-align: center;
+}
+
+.ai-news-admin-login-apply-prompt p { font-size: 0.83rem; }
+.dark .ai-news-admin-login-apply-prompt p { color: var(--a-text-dark-secondary); }
+.light .ai-news-admin-login-apply-prompt p { color: var(--a-text-light-secondary); }
+
+.ai-news-admin-login-user-link {
+  text-align: center;
+  font-size: 0.82rem;
+}
+
+.dark .ai-news-admin-login-user-link { color: var(--a-text-dark-muted); }
+.light .ai-news-admin-login-user-link { color: var(--a-text-light-muted); }
+
+.ai-news-admin-login-user-link a {
+  color: var(--a-accent);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.ai-news-admin-login-role-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+  padding-top: 0.3rem;
+}
+
+.ai-news-admin-login-role-chip {
+  padding: 0.2rem 0.65rem;
+  border-radius: 4px;
+  font-family: var(--a-font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+  color: var(--a-accent);
+}
+
+/* ── Divider ────────────────────────────────────────────────── */
+.ai-news-admin-login-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.77rem;
+  font-weight: 500;
+}
+
+.ai-news-admin-login-divider::before,
+.ai-news-admin-login-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+}
+
+.dark .ai-news-admin-login-divider { color: var(--a-text-dark-muted); }
+.dark .ai-news-admin-login-divider::before,
+.dark .ai-news-admin-login-divider::after { background: var(--a-border-dark); }
+
+.light .ai-news-admin-login-divider { color: var(--a-text-light-muted); }
+.light .ai-news-admin-login-divider::before,
+.light .ai-news-admin-login-divider::after { background: var(--a-border-light); }
+
+/* ── Links (Signup bottom) ──────────────────────────────────── */
+.ai-news-admin-signup-login-link,
+.ai-news-admin-signup-user-link {
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.dark .ai-news-admin-signup-login-link,
+.dark .ai-news-admin-signup-user-link { color: var(--a-text-dark-secondary); }
+
+.light .ai-news-admin-signup-login-link,
+.light .ai-news-admin-signup-user-link { color: var(--a-text-light-secondary); }
+
+.ai-news-admin-signup-login-link a,
+.ai-news-admin-signup-user-link a {
+  color: var(--a-accent);
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.ai-news-admin-signup-login-link a:hover,
+.ai-news-admin-signup-user-link a:hover { text-decoration: underline; }
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .ai-news-admin-signup-layout,
+  .ai-news-admin-login-layout { flex-direction: column; }
+
+  .ai-news-admin-signup-left,
+  .ai-news-admin-login-left {
+    width: 100%;
+    min-height: auto;
+    position: static;
+  }
+
+  .ai-news-admin-signup-left-inner,
+  .ai-news-admin-login-left-inner { padding: 2rem 1.5rem; gap: 1.4rem; }
+
+  .ai-news-admin-signup-capabilities,
+  .ai-news-admin-signup-role-preview { display: none; }
+
+  .ai-news-admin-login-quick-section { display: none; }
+
+  .ai-news-admin-signup-right,
+  .ai-news-admin-login-right { padding: 2rem 1.25rem; }
+
+  .ai-news-admin-login-stats-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 580px) {
+  .ai-news-admin-signup-roles-grid { grid-template-columns: 1fr; }
+  .ai-news-admin-signup-two-col { grid-template-columns: 1fr; }
+  .ai-news-admin-signup-review-grid { grid-template-columns: 1fr; }
+  .ai-news-admin-login-stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .ai-news-admin-signup-left-inner,
+  .ai-news-admin-login-left-inner { padding: 1.5rem 1.1rem; }
+
+  .ai-news-admin-signup-right,
+  .ai-news-admin-login-right { padding: 1.5rem 1rem; }
+
+  .ai-news-admin-login-role-chips { display: none; }
+}

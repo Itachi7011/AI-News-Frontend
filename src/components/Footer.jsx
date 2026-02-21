@@ -1,6 +1,6 @@
 // src/components/Footer/Footer.jsx
 import { useContext, useState, useRef, useEffect } from 'react';
-import { ThemeContext } from '../../context/ThemeContext';
+import { ThemeContext } from '../context/ThemeContext';
 import Swal from 'sweetalert2';
 import {
   Brain,
@@ -35,7 +35,6 @@ import {
   Star,
   Send,
 } from 'lucide-react';
-import './Footer.css';
 
 /* ── DATA ────────────────────────────────────────────── */
 const footerLinks = [

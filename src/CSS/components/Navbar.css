@@ -188,6 +188,7 @@
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--nai-border-nav);
+  margin-bottom: 1rem !important;
 }
 
 .nai-navbar--scrolled {

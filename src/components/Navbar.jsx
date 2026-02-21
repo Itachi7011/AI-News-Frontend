@@ -1,6 +1,6 @@
-// src/components/Navbar/Navbar.jsx
+// src/components/Navbar.jsx
 import { useContext, useState, useEffect, useRef } from 'react';
-import { ThemeContext } from '../../context/ThemeContext';
+import { ThemeContext } from '../context/ThemeContext';
 import {
   Brain,
   ChevronDown,
@@ -26,7 +26,6 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import Swal from 'sweetalert2';
-import './Navbar.css';
 
 const navLinks = [
   {
@@ -67,7 +66,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
+  const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState(null);
@@ -293,7 +292,7 @@ export default function Navbar() {
           {/* Theme Toggle */}
           <button
             className="nai-actions__btn nai-actions__btn--theme"
-            onClick={toggleDarkMode}
+           onClick={toggleTheme}
             aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             title={isDarkMode ? 'Light Mode' : 'Dark Mode'}
           >
@@ -389,7 +388,9 @@ export default function Navbar() {
           </ul>
 
           <div className="nai-mobile-footer">
-            <button className="nai-mobile-theme-btn" onClick={toggleDarkMode}>
+            <button className="nai-mobile-theme-btn" onClick={() => {
+                toggleTheme();
+              }}>
               {isDarkMode ? <Sun size={15} /> : <Moon size={15} />}
               {isDarkMode ? 'Light Mode' : 'Dark Mode'}
             </button>

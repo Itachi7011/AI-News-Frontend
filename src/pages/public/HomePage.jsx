@@ -375,94 +375,6 @@ function formatNumber(n) {
 
 // ── COMPONENTS ─────────────────────────────────────────────────────────
 
-function Header({ isDark, onThemeToggle }) {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return (
-    <header className={`ai-news-homepage-header ${scrolled ? "scrolled" : ""}`}>
-      <div className="ai-news-homepage-header-container">
-        <div className="ai-news-homepage-logo-group">
-          <Brain size={28} className="ai-news-homepage-logo-icon" />
-          <div className="ai-news-homepage-logo-text">
-            <span className="ai-news-homepage-logo-primary">News</span>
-            <span className="ai-news-homepage-logo-accent">AI</span>
-          </div>
-        </div>
-
-        <nav className="ai-news-homepage-nav-desktop">
-          <a href="#trending" className="ai-news-homepage-nav-link">
-            Trending
-          </a>
-          <a href="#categories" className="ai-news-homepage-nav-link">
-            Categories
-          </a>
-          <a href="#models" className="ai-news-homepage-nav-link">
-            AI Models
-          </a>
-          <a href="#newsletter" className="ai-news-homepage-nav-link">
-            Newsletter
-          </a>
-        </nav>
-
-        <div className="ai-news-homepage-header-actions">
-          <button
-            onClick={onThemeToggle}
-            className="ai-news-homepage-theme-btn"
-            title="Toggle theme"
-          >
-            {isDark ? "☀️" : "🌙"}
-          </button>
-          <button
-            className="ai-news-homepage-mobile-menu-btn"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </div>
-
-      {mobileOpen && (
-        <nav className="ai-news-homepage-nav-mobile">
-          <a
-            href="#trending"
-            className="ai-news-homepage-nav-mobile-link"
-            onClick={() => setMobileOpen(false)}
-          >
-            Trending
-          </a>
-          <a
-            href="#categories"
-            className="ai-news-homepage-nav-mobile-link"
-            onClick={() => setMobileOpen(false)}
-          >
-            Categories
-          </a>
-          <a
-            href="#models"
-            className="ai-news-homepage-nav-mobile-link"
-            onClick={() => setMobileOpen(false)}
-          >
-            AI Models
-          </a>
-          <a
-            href="#newsletter"
-            className="ai-news-homepage-nav-mobile-link"
-            onClick={() => setMobileOpen(false)}
-          >
-            Newsletter
-          </a>
-        </nav>
-      )}
-    </header>
-  );
-}
 
 function HeroSection() {
   const [keywordIndex, setKeywordIndex] = useState(0);
@@ -1092,10 +1004,7 @@ const Homepage = () => {
 
   return (
     <div className={`ai-news-homepage-root ${isDarkMode ? "dark" : "light"}`}>
-      <Header
-        isDark={isDarkMode}
-        onThemeToggle={() => setIsDarkMode(!isDarkMode)}
-      />
+      
 
       <main className="ai-news-homepage-main">
         <HeroSection />

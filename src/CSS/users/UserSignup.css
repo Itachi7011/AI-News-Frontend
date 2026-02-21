@@ -1,0 +1,1713 @@
+/* ============================================================
+   UserLogin.css — NewsAI User Auth Pages (Login + Signup)
+   Namespace: ai-news-user-login-* | ai-news-user-signup-*
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap");
+
+/* ── CSS Variables ─────────────────────────────────────────── */
+:root {
+  --u-accent: #38bdf8;
+  --u-accent-2: #818cf8;
+  --u-accent-3: #34d399;
+  --u-bg-dark: #070d1a;
+  --u-bg-dark-2: #0d1526;
+  --u-bg-dark-card: #111c2e;
+  --u-bg-dark-card-2: #162035;
+  --u-border-dark: rgba(56, 189, 248, 0.12);
+  --u-text-dark-primary: #f0f6ff;
+  --u-text-dark-secondary: #94a3b8;
+  --u-text-dark-muted: #4b5e7a;
+
+  --u-bg-light: #f0f6ff;
+  --u-bg-light-2: #e8f0fe;
+  --u-bg-light-card: #ffffff;
+  --u-bg-light-card-2: #f8fbff;
+  --u-border-light: rgba(59, 130, 246, 0.15);
+  --u-text-light-primary: #0f1e36;
+  --u-text-light-secondary: #3d5278;
+  --u-text-light-muted: #94a3b8;
+
+  --u-gradient-hero: linear-gradient(
+    135deg,
+    #38bdf8 0%,
+    #818cf8 50%,
+    #34d399 100%
+  );
+  --u-gradient-btn: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+  --u-shadow-glow: 0 0 30px rgba(56, 189, 248, 0.18);
+  --u-radius: 14px;
+  --u-radius-sm: 9px;
+  --u-transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --u-font-display: "Syne", sans-serif;
+  --u-font-body: "DM Sans", sans-serif;
+}
+
+/* ── Reset & Base ───────────────────────────────────────────── */
+.ai-news-user-signup-root *,
+.ai-news-user-login-root * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.ai-news-user-signup-seo-title,
+.ai-news-user-login-seo-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ── Root Containers ────────────────────────────────────────── */
+.ai-news-user-signup-root,
+.ai-news-user-login-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  font-family: var(--u-font-body);
+  overflow: hidden;
+}
+
+.ai-news-user-signup-root.dark,
+.ai-news-user-login-root.dark {
+  background: var(--u-bg-dark);
+  color: var(--u-text-dark-primary);
+}
+
+.ai-news-user-signup-root.light,
+.ai-news-user-login-root.light {
+  background: var(--u-bg-light);
+  color: var(--u-text-light-primary);
+}
+
+/* ── Canvas ─────────────────────────────────────────────────── */
+.ai-news-user-signup-canvas,
+.ai-news-user-login-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Floating Orbs ──────────────────────────────────────────── */
+.ai-news-user-signup-orb,
+.ai-news-user-login-orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(80px);
+  opacity: 0.25;
+  animation: u-orb-float 12s ease-in-out infinite;
+}
+
+.ai-news-user-signup-orb-1,
+.ai-news-user-login-orb-1 {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, #38bdf8, transparent);
+  top: -100px;
+  left: -120px;
+  animation-delay: 0s;
+}
+.ai-news-user-signup-orb-2,
+.ai-news-user-login-orb-2 {
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, #818cf8, transparent);
+  bottom: -80px;
+  right: -100px;
+  animation-delay: -4s;
+}
+.ai-news-user-signup-orb-3 {
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, #34d399, transparent);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -8s;
+}
+
+@keyframes u-orb-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-30px) scale(1.05);
+  }
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+.ai-news-user-signup-layout,
+.ai-news-user-login-layout {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── LEFT PANEL ─────────────────────────────────────────────── */
+.ai-news-user-signup-left,
+.ai-news-user-login-left {
+  width: 45%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+
+.dark .ai-news-user-signup-left,
+.dark .ai-news-user-login-left {
+  background: linear-gradient(160deg, #0a1628 0%, #0f1e38 60%, #0d2248 100%);
+  border-right: 1px solid var(--u-border-dark);
+}
+
+.light .ai-news-user-signup-left,
+.light .ai-news-user-login-left {
+  background: linear-gradient(160deg, #1e3a5f 0%, #1a3a8f 60%, #0f2d6e 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ai-news-user-signup-left-inner,
+.ai-news-user-login-left-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  padding: 2.5rem 2.2rem;
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.ai-news-user-signup-left-inner::-webkit-scrollbar,
+.ai-news-user-login-left-inner::-webkit-scrollbar {
+  display: none;
+}
+
+/* Brand */
+.ai-news-user-signup-brand,
+.ai-news-user-login-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.ai-news-user-signup-logo,
+.ai-news-user-login-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--u-font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.ai-news-user-signup-logo svg,
+.ai-news-user-login-logo svg {
+  color: var(--u-accent);
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
+}
+
+.ai-news-user-signup-logo strong,
+.ai-news-user-login-logo strong {
+  color: var(--u-accent);
+}
+
+.ai-news-user-signup-tagline,
+.ai-news-user-login-tagline {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Hero text */
+.ai-news-user-signup-hero-text,
+.ai-news-user-login-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ai-news-user-signup-hero-text h2,
+.ai-news-user-login-hero h2 {
+  font-family: var(--u-font-display);
+  font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.ai-news-user-signup-gradient-text,
+.ai-news-user-login-gradient-text {
+  background: var(--u-gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ai-news-user-signup-hero-text p,
+.ai-news-user-login-hero p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ── Stats (Signup) ─────────────────────────────────────────── */
+.ai-news-user-signup-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+}
+
+.ai-news-user-signup-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(56, 189, 248, 0.12);
+  border-radius: var(--u-radius-sm);
+  backdrop-filter: blur(8px);
+}
+
+.ai-news-user-signup-stat-value {
+  font-family: var(--u-font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--u-accent);
+}
+
+.ai-news-user-signup-stat-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ── Benefits (Signup) ──────────────────────────────────────── */
+.ai-news-user-signup-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.ai-news-user-signup-benefits h3 {
+  font-family: var(--u-font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+}
+
+.ai-news-user-signup-benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--u-radius-sm);
+  transition: background var(--u-transition);
+}
+
+.ai-news-user-signup-benefit-item:hover {
+  background: rgba(56, 189, 248, 0.07);
+}
+
+.ai-news-user-signup-benefit-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--u-accent);
+  flex-shrink: 0;
+}
+
+.ai-news-user-signup-benefit-item strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0.15rem;
+}
+
+.ai-news-user-signup-benefit-item p {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.4;
+}
+
+/* ── Testimonial (Signup) ───────────────────────────────────── */
+.ai-news-user-signup-testimonial {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(56, 189, 248, 0.1);
+  border-radius: var(--u-radius);
+  padding: 1.1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ai-news-user-signup-stars {
+  display: flex;
+  gap: 0.2rem;
+  color: #fbbf24;
+}
+
+.ai-news-user-signup-testimonial blockquote {
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+
+.ai-news-user-signup-testimonial cite {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-style: normal;
+}
+
+/* ── Login Left: Ticker ─────────────────────────────────────── */
+.ai-news-user-login-ticker-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ai-news-user-login-ticker-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.ai-news-user-login-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  animation: u-pulse 2s infinite;
+}
+
+@keyframes u-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.ai-news-user-login-ticker-wrap {
+  overflow: hidden;
+  border-radius: var(--u-radius-sm);
+  border: 1px solid rgba(56, 189, 248, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.ai-news-user-login-ticker-track {
+  display: flex;
+  flex-direction: column;
+  animation: u-ticker-scroll 25s linear infinite;
+}
+
+.ai-news-user-login-ticker-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes u-ticker-scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.ai-news-user-login-ticker-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.ai-news-user-login-ticker-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--u-accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ai-news-user-login-ticker-text {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── Login Left: Features ───────────────────────────────────── */
+.ai-news-user-login-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+
+.ai-news-user-login-feature-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.85rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(56, 189, 248, 0.08);
+  border-radius: var(--u-radius-sm);
+  transition:
+    background var(--u-transition),
+    border-color var(--u-transition);
+}
+
+.ai-news-user-login-feature-card:hover {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.2);
+}
+
+.ai-news-user-login-feature-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--u-accent);
+  flex-shrink: 0;
+}
+
+.ai-news-user-login-feature-card strong {
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.ai-news-user-login-feature-card p {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ai-news-user-login-security-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  border-radius: var(--u-radius-sm);
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+  font-size: 0.77rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: auto;
+}
+
+.ai-news-user-login-security-badge svg {
+  color: #22c55e;
+  flex-shrink: 0;
+}
+
+/* ── RIGHT PANEL ────────────────────────────────────────────── */
+.ai-news-user-signup-right,
+.ai-news-user-login-right {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+  overflow-y: auto;
+}
+
+.dark .ai-news-user-signup-right,
+.dark .ai-news-user-login-right {
+  background: var(--u-bg-dark-2);
+}
+
+.light .ai-news-user-signup-right,
+.light .ai-news-user-login-right {
+  background: var(--u-bg-light-2);
+}
+
+.ai-news-user-signup-form-container,
+.ai-news-user-login-form-container {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  animation: u-fade-in 0.5s ease;
+}
+
+@keyframes u-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Step Indicator (Signup) ────────────────────────────────── */
+.ai-news-user-signup-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.ai-news-user-signup-step {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--u-font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: all var(--u-transition);
+  border: 2px solid;
+  position: relative;
+  z-index: 1;
+}
+
+.dark .ai-news-user-signup-step {
+  background: var(--u-bg-dark-card);
+  border-color: var(--u-border-dark);
+  color: var(--u-text-dark-muted);
+}
+
+.light .ai-news-user-signup-step {
+  background: var(--u-bg-light-card);
+  border-color: var(--u-border-light);
+  color: var(--u-text-light-muted);
+}
+
+.ai-news-user-signup-step.active {
+  border-color: var(--u-accent) !important;
+  color: var(--u-accent) !important;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+}
+
+.ai-news-user-signup-step.done {
+  background: var(--u-accent) !important;
+  border-color: var(--u-accent) !important;
+  color: #fff !important;
+}
+
+.ai-news-user-signup-step-line {
+  height: 2px;
+  width: 60px;
+  transition: background var(--u-transition);
+}
+
+.dark .ai-news-user-signup-step-line {
+  background: var(--u-border-dark);
+}
+.light .ai-news-user-signup-step-line {
+  background: var(--u-border-light);
+}
+.ai-news-user-signup-step-line.active {
+  background: var(--u-accent) !important;
+}
+
+.ai-news-user-signup-step-labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+  font-size: 0.73rem;
+  font-weight: 500;
+}
+
+.dark .ai-news-user-signup-step-labels {
+  color: var(--u-text-dark-muted);
+}
+.light .ai-news-user-signup-step-labels {
+  color: var(--u-text-light-muted);
+}
+
+/* ── Form Header ────────────────────────────────────────────── */
+.ai-news-user-signup-form-header,
+.ai-news-user-login-form-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  text-align: center;
+}
+
+.ai-news-user-signup-form-header h2,
+.ai-news-user-login-form-header h2 {
+  font-family: var(--u-font-display);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 800;
+}
+
+.dark .ai-news-user-signup-form-header h2,
+.dark .ai-news-user-login-form-header h2 {
+  color: var(--u-text-dark-primary);
+}
+.light .ai-news-user-signup-form-header h2,
+.light .ai-news-user-login-form-header h2 {
+  color: var(--u-text-light-primary);
+}
+
+.ai-news-user-signup-form-header p,
+.ai-news-user-login-form-header p {
+  font-size: 0.9rem;
+}
+
+.dark .ai-news-user-signup-form-header p,
+.dark .ai-news-user-login-form-header p {
+  color: var(--u-text-dark-secondary);
+}
+.light .ai-news-user-signup-form-header p,
+.light .ai-news-user-login-form-header p {
+  color: var(--u-text-light-secondary);
+}
+
+/* Login form icon */
+.ai-news-user-login-form-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  background: var(--u-gradient-btn);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+  animation: u-icon-pulse 3s ease-in-out infinite;
+}
+
+@keyframes u-icon-pulse {
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 32px rgba(14, 165, 233, 0.5);
+  }
+}
+
+/* ── Form ───────────────────────────────────────────────────── */
+.ai-news-user-signup-form,
+.ai-news-user-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.ai-news-user-signup-step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  animation: u-fade-in 0.35s ease;
+}
+
+/* ── Field ──────────────────────────────────────────────────── */
+.ai-news-user-signup-field,
+.ai-news-user-login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.ai-news-user-signup-label,
+.ai-news-user-login-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.83rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.dark .ai-news-user-signup-label,
+.dark .ai-news-user-login-label {
+  color: var(--u-text-dark-secondary);
+}
+.light .ai-news-user-signup-label,
+.light .ai-news-user-login-label {
+  color: var(--u-text-light-secondary);
+}
+
+/* ── Inputs ─────────────────────────────────────────────────── */
+.ai-news-user-signup-input,
+.ai-news-user-login-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: var(--u-radius-sm);
+  font-family: var(--u-font-body);
+  font-size: 0.92rem;
+  outline: none;
+  border: 1.5px solid;
+  transition: all var(--u-transition);
+}
+
+.dark .ai-news-user-signup-input,
+.dark .ai-news-user-login-input {
+  background: var(--u-bg-dark-card);
+  border-color: var(--u-border-dark);
+  color: var(--u-text-dark-primary);
+}
+
+.dark .ai-news-user-signup-input::placeholder,
+.dark .ai-news-user-login-input::placeholder {
+  color: var(--u-text-dark-muted);
+}
+
+.light .ai-news-user-signup-input,
+.light .ai-news-user-login-input {
+  background: var(--u-bg-light-card);
+  border-color: rgba(59, 130, 246, 0.18);
+  color: var(--u-text-light-primary);
+}
+
+.light .ai-news-user-signup-input::placeholder,
+.light .ai-news-user-login-input::placeholder {
+  color: var(--u-text-light-muted);
+}
+
+.ai-news-user-signup-input:focus,
+.ai-news-user-login-input:focus {
+  border-color: var(--u-accent) !important;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+}
+
+.ai-news-user-signup-input.error,
+.ai-news-user-login-input.error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.ai-news-user-signup-error,
+.ai-news-user-login-error {
+  font-size: 0.78rem;
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ── Textarea ───────────────────────────────────────────────── */
+.ai-news-user-signup-textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: var(--u-radius-sm);
+  font-family: var(--u-font-body);
+  font-size: 0.9rem;
+  outline: none;
+  border: 1.5px solid;
+  resize: vertical;
+  transition: all var(--u-transition);
+}
+
+.dark .ai-news-user-signup-textarea {
+  background: var(--u-bg-dark-card);
+  border-color: var(--u-border-dark);
+  color: var(--u-text-dark-primary);
+}
+
+.light .ai-news-user-signup-textarea {
+  background: var(--u-bg-light-card);
+  border-color: rgba(59, 130, 246, 0.18);
+  color: var(--u-text-light-primary);
+}
+
+.ai-news-user-signup-textarea:focus {
+  border-color: var(--u-accent) !important;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+}
+
+.ai-news-user-signup-char-count {
+  font-size: 0.75rem;
+  text-align: right;
+  margin-top: -0.3rem;
+}
+.dark .ai-news-user-signup-char-count {
+  color: var(--u-text-dark-muted);
+}
+.light .ai-news-user-signup-char-count {
+  color: var(--u-text-light-muted);
+}
+
+/* ── Password wrap ──────────────────────────────────────────── */
+.ai-news-user-signup-password-wrap,
+.ai-news-user-login-password-wrap {
+  position: relative;
+}
+
+.ai-news-user-signup-password-wrap .ai-news-user-signup-input,
+.ai-news-user-login-password-wrap .ai-news-user-login-input {
+  padding-right: 2.8rem;
+}
+
+.ai-news-user-signup-eye-btn,
+.ai-news-user-login-eye-btn {
+  position: absolute;
+  right: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  border-radius: 4px;
+  transition: color var(--u-transition);
+  display: flex;
+  align-items: center;
+}
+
+.dark .ai-news-user-signup-eye-btn,
+.dark .ai-news-user-login-eye-btn {
+  color: var(--u-text-dark-muted);
+}
+.dark .ai-news-user-signup-eye-btn:hover,
+.dark .ai-news-user-login-eye-btn:hover {
+  color: var(--u-accent);
+}
+
+.light .ai-news-user-signup-eye-btn,
+.light .ai-news-user-login-eye-btn {
+  color: var(--u-text-light-muted);
+}
+.light .ai-news-user-signup-eye-btn:hover,
+.light .ai-news-user-login-eye-btn:hover {
+  color: var(--u-accent);
+}
+
+/* ── Password Strength ──────────────────────────────────────── */
+.ai-news-user-signup-strength {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 0.4rem;
+}
+
+.ai-news-user-signup-strength-bars {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.ai-news-user-signup-strength-bar {
+  height: 4px;
+  flex: 1;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background 0.3s;
+}
+
+.ai-news-user-signup-strength span {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ── Topics Grid ────────────────────────────────────────────── */
+.ai-news-user-signup-topics-desc {
+  font-size: 0.87rem;
+  line-height: 1.6;
+}
+
+.dark .ai-news-user-signup-topics-desc {
+  color: var(--u-text-dark-secondary);
+}
+.light .ai-news-user-signup-topics-desc {
+  color: var(--u-text-light-secondary);
+}
+
+.ai-news-user-signup-topics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ai-news-user-signup-topic-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1.5px solid;
+  transition: all var(--u-transition);
+  font-family: var(--u-font-body);
+}
+
+.dark .ai-news-user-signup-topic-chip {
+  background: var(--u-bg-dark-card);
+  border-color: var(--u-border-dark);
+  color: var(--u-text-dark-secondary);
+}
+
+.light .ai-news-user-signup-topic-chip {
+  background: var(--u-bg-light-card);
+  border-color: var(--u-border-light);
+  color: var(--u-text-light-secondary);
+}
+
+.ai-news-user-signup-topic-chip.selected {
+  background: rgba(56, 189, 248, 0.12) !important;
+  border-color: var(--u-accent) !important;
+  color: var(--u-accent) !important;
+}
+
+.ai-news-user-signup-topic-chip:hover:not(.selected) {
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+/* ── Preferences ────────────────────────────────────────────── */
+.ai-news-user-signup-prefs-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: var(--u-radius);
+  border: 1px solid;
+}
+
+.dark .ai-news-user-signup-prefs-section {
+  background: var(--u-bg-dark-card);
+  border-color: var(--u-border-dark);
+}
+
+.light .ai-news-user-signup-prefs-section {
+  background: var(--u-bg-light-card-2);
+  border-color: var(--u-border-light);
+}
+
+.ai-news-user-signup-prefs-section h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--u-font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.dark .ai-news-user-signup-prefs-section h4 {
+  color: var(--u-text-dark-primary);
+}
+.light .ai-news-user-signup-prefs-section h4 {
+  color: var(--u-text-light-primary);
+}
+
+.ai-news-user-signup-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ai-news-user-signup-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.35rem 0;
+}
+
+.ai-news-user-signup-toggle-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: block;
+}
+.dark .ai-news-user-signup-toggle-label {
+  color: var(--u-text-dark-primary);
+}
+.light .ai-news-user-signup-toggle-label {
+  color: var(--u-text-light-primary);
+}
+
+.ai-news-user-signup-toggle-desc {
+  font-size: 0.75rem;
+  display: block;
+}
+.dark .ai-news-user-signup-toggle-desc {
+  color: var(--u-text-dark-muted);
+}
+.light .ai-news-user-signup-toggle-desc {
+  color: var(--u-text-light-muted);
+}
+
+/* Toggle switch */
+.ai-news-user-signup-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.ai-news-user-signup-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ai-news-user-signup-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  border-radius: 11px;
+  transition: background 0.25s;
+}
+
+.dark .ai-news-user-signup-slider {
+  background: var(--u-bg-dark-card-2);
+}
+.light .ai-news-user-signup-slider {
+  background: #cbd5e1;
+}
+
+.ai-news-user-signup-slider::before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  left: 3px;
+  top: 3px;
+  transition: transform 0.25s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.ai-news-user-signup-switch input:checked + .ai-news-user-signup-slider {
+  background: var(--u-accent);
+}
+
+.ai-news-user-signup-switch
+  input:checked
+  + .ai-news-user-signup-slider::before {
+  transform: translateX(18px);
+}
+
+/* Select Row */
+.ai-news-user-signup-select-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.ai-news-user-signup-select {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--u-radius-sm);
+  font-family: var(--u-font-body);
+  font-size: 0.88rem;
+  outline: none;
+  border: 1.5px solid;
+  transition: all var(--u-transition);
+  cursor: pointer;
+}
+
+.dark .ai-news-user-signup-select {
+  background: var(--u-bg-dark-card-2);
+  border-color: var(--u-border-dark);
+  color: var(--u-text-dark-primary);
+}
+
+.light .ai-news-user-signup-select {
+  background: var(--u-bg-light-card);
+  border-color: var(--u-border-light);
+  color: var(--u-text-light-primary);
+}
+
+.ai-news-user-signup-select:focus {
+  border-color: var(--u-accent) !important;
+}
+
+/* ── Checkbox ───────────────────────────────────────────────── */
+.ai-news-user-signup-terms-wrap {
+  padding: 0.2rem 0;
+}
+
+.ai-news-user-signup-checkbox-label,
+.ai-news-user-login-remember {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ai-news-user-signup-checkbox-label input,
+.ai-news-user-login-remember input {
+  display: none;
+}
+
+.ai-news-user-signup-custom-checkbox,
+.ai-news-user-login-custom-checkbox {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 2px solid;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--u-transition);
+  position: relative;
+}
+
+.dark .ai-news-user-signup-custom-checkbox,
+.dark .ai-news-user-login-custom-checkbox {
+  border-color: var(--u-border-dark);
+  background: var(--u-bg-dark-card);
+}
+
+.light .ai-news-user-signup-custom-checkbox,
+.light .ai-news-user-login-custom-checkbox {
+  border-color: rgba(59, 130, 246, 0.3);
+  background: #fff;
+}
+
+.ai-news-user-signup-checkbox-label
+  input:checked
+  + .ai-news-user-signup-custom-checkbox,
+.ai-news-user-login-remember
+  input:checked
+  + .ai-news-user-login-custom-checkbox {
+  background: var(--u-accent) !important;
+  border-color: var(--u-accent) !important;
+}
+
+.ai-news-user-signup-checkbox-label
+  input:checked
+  + .ai-news-user-signup-custom-checkbox::after,
+.ai-news-user-login-remember
+  input:checked
+  + .ai-news-user-login-custom-checkbox::after {
+  content: "✓";
+  font-size: 0.65rem;
+  color: white;
+  font-weight: 900;
+}
+
+.dark .ai-news-user-signup-checkbox-label {
+  color: var(--u-text-dark-secondary);
+}
+.light .ai-news-user-signup-checkbox-label {
+  color: var(--u-text-light-secondary);
+}
+.dark .ai-news-user-login-remember {
+  color: var(--u-text-dark-secondary);
+}
+.light .ai-news-user-login-remember {
+  color: var(--u-text-light-secondary);
+}
+
+.ai-news-user-signup-checkbox-label a,
+.ai-news-user-login-remember a {
+  color: var(--u-accent);
+  text-decoration: none;
+}
+
+.ai-news-user-signup-checkbox-label a:hover,
+.ai-news-user-login-remember a:hover {
+  text-decoration: underline;
+}
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.ai-news-user-signup-btn-primary,
+.ai-news-user-login-btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  border-radius: var(--u-radius-sm);
+  font-family: var(--u-font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  background: var(--u-gradient-btn);
+  color: #fff;
+  transition: all var(--u-transition);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+}
+
+.ai-news-user-signup-btn-primary::before,
+.ai-news-user-login-btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0);
+  transition: background var(--u-transition);
+}
+
+.ai-news-user-signup-btn-primary:hover::before,
+.ai-news-user-login-btn-primary:hover::before {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ai-news-user-signup-btn-primary:hover,
+.ai-news-user-login-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.4);
+}
+
+.ai-news-user-signup-btn-primary:active,
+.ai-news-user-login-btn-primary:active {
+  transform: translateY(0);
+}
+
+.ai-news-user-signup-btn-primary:disabled,
+.ai-news-user-login-btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ai-news-user-signup-btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--u-radius-sm);
+  font-family: var(--u-font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid;
+  background: transparent;
+  transition: all var(--u-transition);
+  flex: 1;
+}
+
+.dark .ai-news-user-signup-btn-secondary {
+  border-color: var(--u-border-dark);
+  color: var(--u-text-dark-secondary);
+}
+.dark .ai-news-user-signup-btn-secondary:hover {
+  border-color: var(--u-accent);
+  color: var(--u-accent);
+  background: rgba(56, 189, 248, 0.06);
+}
+
+.light .ai-news-user-signup-btn-secondary {
+  border-color: rgba(59, 130, 246, 0.25);
+  color: var(--u-text-light-secondary);
+}
+.light .ai-news-user-signup-btn-secondary:hover {
+  border-color: var(--u-accent);
+  color: var(--u-accent);
+}
+
+.ai-news-user-signup-btn-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.ai-news-user-signup-btn-row .ai-news-user-signup-btn-primary {
+  flex: 2;
+}
+
+.ai-news-user-login-btn-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.82rem 1.5rem;
+  border-radius: var(--u-radius-sm);
+  font-family: var(--u-font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid;
+  transition: all var(--u-transition);
+}
+
+.dark .ai-news-user-login-btn-outline {
+  border-color: var(--u-border-dark);
+  color: var(--u-text-dark-primary);
+}
+
+.light .ai-news-user-login-btn-outline {
+  border-color: rgba(59, 130, 246, 0.25);
+  color: var(--u-text-light-primary);
+}
+
+.ai-news-user-login-btn-outline:hover {
+  border-color: var(--u-accent) !important;
+  color: var(--u-accent) !important;
+  transform: translateY(-1px);
+}
+
+.ai-news-user-login-btn-ghost {
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--u-font-body);
+  font-size: 0.88rem;
+  transition: color var(--u-transition);
+}
+
+.dark .ai-news-user-login-btn-ghost {
+  color: var(--u-text-dark-muted);
+}
+.dark .ai-news-user-login-btn-ghost:hover {
+  color: var(--u-accent);
+}
+.light .ai-news-user-login-btn-ghost {
+  color: var(--u-text-light-muted);
+}
+.light .ai-news-user-login-btn-ghost:hover {
+  color: var(--u-accent);
+}
+
+/* ── Spinner ────────────────────────────────────────────────── */
+.ai-news-user-signup-spinner,
+.ai-news-user-login-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: u-spin 0.7s linear infinite;
+}
+
+@keyframes u-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Alert Error ────────────────────────────────────────────── */
+.ai-news-user-login-alert-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--u-radius-sm);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  animation: u-fade-in 0.3s ease;
+}
+
+/* ── Login Extras ───────────────────────────────────────────── */
+.ai-news-user-login-forgot-inline {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--u-accent);
+  padding: 0;
+  transition: opacity var(--u-transition);
+}
+.ai-news-user-login-forgot-inline:hover {
+  opacity: 0.7;
+}
+
+.ai-news-user-login-signup-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  text-align: center;
+}
+
+.ai-news-user-login-signup-prompt p {
+  font-size: 0.85rem;
+}
+.dark .ai-news-user-login-signup-prompt p {
+  color: var(--u-text-dark-secondary);
+}
+.light .ai-news-user-login-signup-prompt p {
+  color: var(--u-text-light-secondary);
+}
+
+.ai-news-user-login-admin-link {
+  text-align: center;
+  font-size: 0.82rem;
+}
+.dark .ai-news-user-login-admin-link {
+  color: var(--u-text-dark-muted);
+}
+.light .ai-news-user-login-admin-link {
+  color: var(--u-text-light-muted);
+}
+
+.ai-news-user-login-admin-link a {
+  color: var(--u-accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-weight: 500;
+}
+
+.ai-news-user-login-info-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.ai-news-user-login-info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.85rem;
+  border-radius: var(--u-radius-sm);
+  border: 1px solid;
+}
+
+.dark .ai-news-user-login-info-card {
+  background: var(--u-bg-dark-card);
+  border-color: var(--u-border-dark);
+}
+.light .ai-news-user-login-info-card {
+  background: var(--u-bg-light-card);
+  border-color: var(--u-border-light);
+}
+
+.ai-news-user-login-info-card svg {
+  color: var(--u-accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ai-news-user-login-info-card strong {
+  font-size: 0.83rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+.dark .ai-news-user-login-info-card strong {
+  color: var(--u-text-dark-primary);
+}
+.light .ai-news-user-login-info-card strong {
+  color: var(--u-text-light-primary);
+}
+.ai-news-user-login-info-card p {
+  font-size: 0.75rem;
+}
+.dark .ai-news-user-login-info-card p {
+  color: var(--u-text-dark-muted);
+}
+.light .ai-news-user-login-info-card p {
+  color: var(--u-text-light-muted);
+}
+
+/* ── Divider ────────────────────────────────────────────────── */
+.ai-news-user-signup-divider,
+.ai-news-user-login-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.ai-news-user-signup-divider::before,
+.ai-news-user-signup-divider::after,
+.ai-news-user-login-divider::before,
+.ai-news-user-login-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+}
+
+.dark .ai-news-user-signup-divider,
+.dark .ai-news-user-login-divider {
+  color: var(--u-text-dark-muted);
+}
+.dark .ai-news-user-signup-divider::before,
+.dark .ai-news-user-signup-divider::after,
+.dark .ai-news-user-login-divider::before,
+.dark .ai-news-user-login-divider::after {
+  background: var(--u-border-dark);
+}
+
+.light .ai-news-user-signup-divider,
+.light .ai-news-user-login-divider {
+  color: var(--u-text-light-muted);
+}
+.light .ai-news-user-signup-divider::before,
+.light .ai-news-user-signup-divider::after,
+.light .ai-news-user-login-divider::before,
+.light .ai-news-user-login-divider::after {
+  background: var(--u-border-light);
+}
+
+/* ── Signup Login Link ──────────────────────────────────────── */
+.ai-news-user-signup-login-link {
+  text-align: center;
+  font-size: 0.87rem;
+}
+
+.dark .ai-news-user-signup-login-link {
+  color: var(--u-text-dark-secondary);
+}
+.light .ai-news-user-signup-login-link {
+  color: var(--u-text-light-secondary);
+}
+
+.ai-news-user-signup-login-link a {
+  color: var(--u-accent);
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+.ai-news-user-signup-login-link a:hover {
+  text-decoration: underline;
+}
+
+/* ── Bottom Features (Signup) ───────────────────────────────── */
+.ai-news-user-signup-bottom-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.ai-news-user-signup-feat {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--u-radius-sm);
+}
+
+.dark .ai-news-user-signup-feat {
+  background: var(--u-bg-dark-card);
+  color: var(--u-text-dark-secondary);
+}
+
+.light .ai-news-user-signup-feat {
+  background: var(--u-bg-light-card);
+  color: var(--u-text-light-secondary);
+}
+
+.ai-news-user-signup-feat svg {
+  color: var(--u-accent);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .ai-news-user-signup-layout,
+  .ai-news-user-login-layout {
+    flex-direction: column;
+  }
+
+  .ai-news-user-signup-left,
+  .ai-news-user-login-left {
+    width: 100%;
+    min-height: auto;
+    position: static;
+  }
+
+  .ai-news-user-signup-left-inner,
+  .ai-news-user-login-left-inner {
+    padding: 2rem 1.5rem;
+    gap: 1.4rem;
+  }
+
+  .ai-news-user-signup-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .ai-news-user-login-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ai-news-user-signup-testimonial {
+    display: none;
+  }
+
+  .ai-news-user-signup-right,
+  .ai-news-user-login-right {
+    padding: 2rem 1.25rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .ai-news-user-signup-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ai-news-user-signup-benefits {
+    display: none;
+  }
+  .ai-news-user-login-ticker-section {
+    display: none;
+  }
+  .ai-news-user-signup-select-row {
+    grid-template-columns: 1fr;
+  }
+  .ai-news-user-login-info-cards {
+    grid-template-columns: 1fr;
+  }
+  .ai-news-user-signup-bottom-features {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ai-news-user-signup-left-inner,
+  .ai-news-user-login-left-inner {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .ai-news-user-signup-right,
+  .ai-news-user-login-right {
+    padding: 1.5rem 1rem;
+  }
+
+  .ai-news-user-login-features {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 380px) {
+  .ai-news-user-signup-step-line {
+    width: 35px;
+  }
+  .ai-news-user-signup-topics-grid .ai-news-user-signup-topic-chip {
+    font-size: 0.77rem;
+  }
+}
