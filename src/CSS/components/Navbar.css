@@ -796,13 +796,13 @@
 .nai-mobile-nav__chevron--open { transform: rotate(-180deg); }
 
 /* Mobile Subnav */
-.nai-mobile-subnav {
+/* .nai-mobile-subnav {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.3s var(--nai-ease-out);
   overflow: hidden;
 }
-.nai-mobile-subnav--open { grid-template-rows: 1fr; }
+.nai-mobile-subnav--open { grid-template-rows: 1fr; } */
 
 .nai-mobile-subnav__item {
   display: flex;
@@ -936,6 +936,372 @@
 /* ── SCROLLBAR (drawer) ──────────────────────────────── */
 .nai-mobile-drawer::-webkit-scrollbar { width: 4px; }
 .nai-mobile-drawer::-webkit-scrollbar-track { background: transparent; }
+.nai-mobile-drawer::-webkit-scrollbar-thumb {
+  background: rgba(99,102,241,0.3);
+  border-radius: var(--nai-radius-full);
+}
+
+/* Add this after the .nai-navbar rules (around line 120-125) */
+
+/* Add spacing for main content - fixes issue 1 */
+.navbar-spacer {
+  height: clamp(30px, 3vh, 42px); /* Match navbar height */
+  width: 100%;
+}
+
+/* Fix mobile menu dropdown - replaces existing mobile subnav rules (around line 620-650) */
+
+/* Mobile Subnav - Fixed version */
+.nai-mobile-subnav {
+  display: none;
+  padding-left: 24px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-left: 2px solid var(--nai-indigo-500);
+  margin-left: 14px;
+}
+
+.nai-mobile-subnav--open {
+  display: block;
+  animation: nai-subnav-slide 0.25s var(--nai-ease-out);
+}
+
+@keyframes nai-subnav-slide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nai-mobile-subnav__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  font-family: var(--nai-font-body);
+  font-size: 0.875rem;
+  color: var(--nai-text-secondary);
+  text-decoration: none;
+  border-radius: var(--nai-radius-md);
+  transition: background 0.18s, color 0.18s;
+}
+
+.nai-mobile-subnav__item:hover {
+  background: var(--nai-bg-item-hover);
+  color: var(--nai-indigo-400);
+}
+
+.nai-mobile-subnav__icon {
+  display: flex;
+  color: var(--nai-indigo-400);
+  flex-shrink: 0;
+}
+
+/* Completely replace the mobile drawer section (from around line 550 to the end) */
+
+/* ── MOBILE OVERLAY ──────────────────────────────────── */
+.nai-mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: calc(var(--nai-z-nav) + 1);
+  background: var(--nai-overlay);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+/* ── MOBILE DRAWER ───────────────────────────────────── */
+.nai-mobile-drawer {
+  position: fixed;
+  top: clamp(60px, 7vh, 72px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: calc(var(--nai-z-nav) + 2);
+  background: var(--nai-bg-drawer);
+  display: none; /* Use display none/block instead of transform/opacity */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-top: 1px solid var(--nai-border-nav);
+}
+
+.nai-mobile-drawer--open {
+  display: block;
+  animation: nai-drawer-in 0.3s var(--nai-ease-out);
+}
+
+@keyframes nai-drawer-in {
+  from { 
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nai-mobile-drawer__inner {
+  padding: 20px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 100%;
+}
+
+/* Mobile Search */
+.nai-mobile-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--nai-bg-input);
+  border: 1.5px solid var(--nai-border-input);
+  border-radius: var(--nai-radius-md);
+  padding: 12px 16px;
+  margin-bottom: 8px;
+}
+
+.nai-mobile-search:focus-within {
+  border-color: var(--nai-indigo-500);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+}
+
+.nai-mobile-search__icon { 
+  color: var(--nai-text-muted); 
+  flex-shrink: 0; 
+}
+
+.nai-mobile-search__input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-family: var(--nai-font-body);
+  font-size: 1rem;
+  color: var(--nai-text-primary);
+}
+
+.nai-mobile-search__input::placeholder { 
+  color: var(--nai-text-muted); 
+}
+
+/* Mobile Nav List */
+.nai-mobile-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nai-mobile-nav__item {
+  width: 100%;
+}
+
+.nai-mobile-nav__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 16px;
+  font-family: var(--nai-font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--nai-text-primary);
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: var(--nai-radius-md);
+  transition: background 0.18s;
+}
+
+.nai-mobile-nav__link:hover,
+.nai-mobile-nav__link--expanded {
+  background: var(--nai-bg-btn-hover);
+  color: var(--nai-indigo-400);
+}
+
+.nai-mobile-nav__link-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nai-mobile-nav__chevron {
+  transition: transform 0.25s var(--nai-ease-out);
+  color: var(--nai-text-muted);
+}
+
+.nai-mobile-nav__chevron--open { 
+  transform: rotate(-180deg); 
+}
+
+/* Mobile Subnav */
+.nai-mobile-subnav {
+  display: none;
+  margin: 4px 0 8px 16px;
+  padding-left: 16px;
+  border-left: 2px solid var(--nai-indigo-500);
+}
+
+.nai-mobile-subnav--open {
+  display: block;
+}
+
+.nai-mobile-subnav__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  font-family: var(--nai-font-body);
+  font-size: 0.95rem;
+  color: var(--nai-text-secondary);
+  text-decoration: none;
+  border-radius: var(--nai-radius-md);
+  transition: background 0.18s;
+}
+
+.nai-mobile-subnav__item:hover {
+  background: var(--nai-bg-item-hover);
+  color: var(--nai-indigo-400);
+}
+
+.nai-mobile-subnav__icon {
+  display: flex;
+  color: var(--nai-indigo-400);
+  flex-shrink: 0;
+}
+
+/* Mobile Footer */
+.nai-mobile-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--nai-border-nav);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nai-mobile-theme-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  font-family: var(--nai-font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--nai-text-secondary);
+  background: var(--nai-bg-input);
+  border: 1px solid var(--nai-border-nav);
+  border-radius: var(--nai-radius-md);
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.nai-mobile-theme-btn:hover {
+  background: var(--nai-bg-btn-hover);
+  color: var(--nai-indigo-400);
+}
+
+.nai-mobile-auth {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.nai-mobile-auth__signin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  font-family: var(--nai-font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--nai-text-secondary);
+  text-decoration: none;
+  border: 1px solid var(--nai-signin-border);
+  border-radius: var(--nai-radius-md);
+  transition: background 0.18s;
+}
+
+.nai-mobile-auth__signin:hover {
+  background: var(--nai-signin-hover-bg);
+  color: var(--nai-indigo-400);
+}
+
+.nai-mobile-auth__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  font-family: var(--nai-font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  border-radius: var(--nai-radius-md);
+  background: var(--nai-gradient-cta);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .nai-navlist { 
+    display: none; 
+  }
+  
+  .nai-actions__signin,
+  .nai-actions__cta { 
+    display: none; 
+  }
+  
+  .nai-hamburger { 
+    display: flex; 
+  }
+}
+
+@media (max-width: 600px) {
+  .nai-search { 
+    display: none; 
+  }
+  
+  .nai-actions__btn--theme { 
+    display: none; 
+  }
+  
+  .nai-navbar__inner { 
+    padding: 0 16px; 
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Scrollbar styling */
+.nai-mobile-drawer::-webkit-scrollbar { 
+  width: 4px; 
+}
+
+.nai-mobile-drawer::-webkit-scrollbar-track { 
+  background: transparent; 
+}
+
 .nai-mobile-drawer::-webkit-scrollbar-thumb {
   background: rgba(99,102,241,0.3);
   border-radius: var(--nai-radius-full);

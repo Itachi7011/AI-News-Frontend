@@ -80,6 +80,7 @@ function App() {
             {/* <AdminSidebar /> */}
 
             <Navbar />
+            <div className="navbar-spacer" />
             <FloatingActionButton />
 
             {/* <AdminNavSidebar /> */}
